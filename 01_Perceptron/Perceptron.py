@@ -39,9 +39,19 @@ class Perceptron:
             Target values.
 
         """
+        # Initialize weights (including threshold)
         self.w_ = np.zeros(1 + X.shape[1])  # First position corresponds to threshold
-
-        # TODO: Put your code (fit algorithm)
+        print(self.w_)
+        #For each iteration, train the perceptron with all samples
+        for _ in range(self.n_iter):
+            #For each sample, update the weights
+            for i in range(len(X)):
+                sample = X[i]
+                print(sample)
+                prediction = self.predict(sample)
+                error = y[i] - prediction
+                self.w_[1:] += self.eta * error * sample # Update feature weights
+                self.w_[0] += self.eta * error  # Update threshold
 
 
     def predict(self, X):
@@ -50,7 +60,7 @@ class Perceptron:
             Second apply the step function
             Return a list with classes
         """
-
-        # TODO: Put your code
-
-        return np.random.randint(0, 2, size=X.shape[0])  # remove
+        # Prediction is the dot product between X and weights
+        predicts = np.dot(X, self.w_[1:]) + self.w_[0]
+        #Returning class labels after applying the step function
+        return np.where(predicts >= 0.0, 1, -1)
