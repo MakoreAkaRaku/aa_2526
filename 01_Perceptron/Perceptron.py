@@ -27,7 +27,6 @@ class Perceptron:
         self.w_ = None  # defined in method fit
 
     def fit(self, X, y):
-
         """Fit training dat.
 
         Parameters
